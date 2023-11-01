@@ -15,13 +15,21 @@
                             <!-- To make this form functional, sign up at-->
                             <!-- https://startbootstrap.com/solution/contact-forms-->
                             <!-- to get an API token!-->
-                            <form  name="sentMessage" id="contactForm" action="/add" method="POST" data-sb-form-api-token="API_TOKEN">
+                            <form  name="sentMessage" id="contactForm" enctype="multipart/form-data"  action="/add" method="POST" data-sb-form-api-token="API_TOKEN" >
                                 <div class="form-floating">
                                     <input class="form-control" id="name" name="tital" type="text" placeholder="Enter your tital..." data-sb-validations="required" />
                                     <label for="name">tital</label>
                                     <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
                                 </div>
-                                
+                                <div class="form-floating">
+                                    <input class="form-control" id="subhead" name="subhead" type="text" placeholder="Enter your sub hedding..." data-sb-validations="required" />
+                                    <label for="subhead">SubHeading</label>
+                                    <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                                </div>
+                                <br>
+                                <div class="form-floating">
+                                    <input type="file" name="file1">
+                                </div>
                                 <div class="form-floating">
                                     <textarea class="form-control" id="message" name="content" placeholder="Enter your message here..." style="height: 12rem" data-sb-validations="required"></textarea>
                                     <label for="message">Content</label>

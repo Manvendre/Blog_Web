@@ -2,6 +2,9 @@ import datetime
 from flask import Flask, render_template,request,session,redirect
 from flask_sqlalchemy import SQLAlchemy
 import psycopg2
+import os
+from werkzeug.utils import secure_filename
+from werkzeug.datastructures import  FileStorage
 
 
 
@@ -10,6 +13,7 @@ app.secret_key = 'super-secret-key'
 
 app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql+psycopg2://postgres:2083@localhost:5432/Blogpost'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['UPLOAD_FOLDER'] = 'C:\\Users\\777ma\\OneDrive\\Desktop\\BLOG\\static\\assets\\img'
 
 db=SQLAlchemy(app)
 
@@ -26,6 +30,8 @@ class Posts(db.Model):
     __tablename__='posts'
     sno = db.Column(db.Integer, primary_key=True,autoincrement=True)
     tital = db.Column(db.String(80), nullable=False)
+    subhead = db.Column(db.String(80), nullable=False)
+    img_url = db.Column(db.String(80), nullable=False)
     contant = db.Column(db.String(120), nullable=False)
     date = db.Column(db.String(12), nullable=True)
     
@@ -57,8 +63,8 @@ def dashboard():
             session['user']=username
             posts = Posts.query.all()
             return render_template("dashboard.html", posts=posts)
-    else:
-        return render_template("login.html")
+    
+    return render_template("login.html")
         
 
 @app.route("/post/<string:tital>", methods=['GET'])
@@ -73,10 +79,15 @@ def add():
           if(request.method=='POST'):
                '''Add entry to the database'''
                tital = request.form.get('tital')
+               subhead=request.form.get('subhead')
                contant = request.form.get('content')
-               entry = Posts(tital=tital,contant = contant, date= datetime.datetime.now() )
+               f = request.files['file1']
+               img_url=f.filename
+               f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
+               entry = Posts(tital=tital,subhead=subhead,img_url=img_url,contant = contant, date= datetime.datetime.now() )
                db.session.add(entry)
                db.session.commit()
+
                return redirect('/dashboard')
           return render_template('add.html')
 
