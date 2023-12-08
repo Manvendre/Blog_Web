@@ -11,7 +11,7 @@ from werkzeug.datastructures import  FileStorage
 app = Flask(__name__)
 app.secret_key = 'super-secret-key'
 
-app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://blog_web_8mtz_user:e2FqlvE4m4Lv0GrHrpTn0sFjUfAMNNfn@dpg-clkmdesjtl8s73eca0og-a/blog_web_8mtz'
+app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://blog_web_8mtz_user:e2FqlvE4m4Lv0GrHrpTn0sFjUfAMNNfn@dpg-clkmdesjtl8s73eca0og-a.oregon-postgres.render.com/blog_web_8mtz'
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'C:\\Users\\777ma\\OneDrive\\Desktop\\BLOG\\static\\assets\\img'
